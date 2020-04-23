@@ -1,0 +1,126 @@
+//devoir 2017
+//ex1
+typedef struct TreeNode{
+	int val;
+	TreeNode*left=NULL;
+	TreeNode*right=NULL;
+}TreeNode;
+
+
+int nbre_neu(TreeNode*r){
+	if (r==NULL) return(0);
+	return(1+nbre_neu(r->left)+nbre_neu(r->right));
+}
+//ex2
+//1
+int len(TreeNode*r){
+	if (!r) return(0);
+	return(1+max(len(r->left,len(r->right))));
+}
+int test_parfait(TreeNode*r){
+	if (!r) return(1);
+	if (len(r->left)!=len(r->right)) return(0);
+	return(test_parfait(r->left) && test_parfait(r->right));
+}
+//2
+int test_bin(TreeNode*r){
+	return(test_bin_rec(r,INT_MAX,INT_MIN));
+}
+int test_bin_rec(TreeNode*r,int limit,int min){
+	if (!r) return(1);
+	test_bin(r->left,r->val,min);
+	if (r->left && (r->val < r->left->val || r->left->val<limit ) return(0); 
+	test_bin(r->right,limit,r->val);
+	if (r->right && (r->val > r->right->val || r->right->val>limit ) )return(0);
+	}
+	
+	
+//ex3
+///A
+typedef struct elem{
+	int x;
+	elem*sui;
+	elem*pre;
+}elem;
+typedef struct file {
+	int val;
+	elem*deb;
+	elem*fin;
+}file;
+//1
+void remove_k(file*&f1,file*&f2,int k){
+	int e;
+	while (!vide(f1)){
+	e=queue(f1);
+	f1=defiler(f1);
+	if (k!=0) f2=emfiler(f2,e);		
+	k--;}
+
+	while (!vide(f2)){
+			e=queue(f2);
+	f2=defiler(f2);
+	f1=emfiler(f1,e);
+	}}
+//2
+void remove_intervalle(file*&f1,file*&f2,int i,int j){
+	//i<=j
+	int e,k=0;
+	while (!vide(f1)){
+	e=queue(f1);
+	f1=defiler(f1);
+	if (k>j || k<i) f2=emfiler(f2,e);		
+	k++;}
+
+	while (!vide(f2)){
+			e=tete(f2);
+	f2=defiler(f2);
+	f1=emfiler(f1,e);
+	}}
+
+//b
+typedef struct pp {
+	int val;
+	pp*suivant;
+	
+};
+//1
+void remove_k(pile*&p1,pile*&p2,int k){
+	int e;
+	while (!vide(p1)){
+	e=tete(p1);
+	p1=depiler(p1);
+	if (k!=0) p2=emfiler(p2,e);		
+	k--;}
+
+	while (!vide(p2)){
+			e=queue(p2);
+	p2=defiler(p2);
+	p1=emfiler(p1,e);
+	}}
+//2
+void rajoute(pile*&p1,pile*&p2,int k){
+	pile*d=(pile*)malloc(sizeof(pile));
+	int x,e;
+	printf("donner entier");
+	scanf("%d",&x);
+	while (!vide(p1)){
+		if (k==0) p2=empiler(p2,x);
+		k--;
+		e=tete(p1);
+		p1=depiler(p1);
+		p2=empiler(p2,e);
+	}
+	if (k>=0) p2=empiler(p2,x);
+	while (!vide(p2)){
+		e=tete(p2);
+		depiler(p2);
+		empiler(p1);
+	}
+}
+// fin.
+
+
+
+
+
+
